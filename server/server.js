@@ -11,7 +11,8 @@ class Server {
         return mongoose.connect(enviroment_1.enviroment.server.db.url, {
             user: enviroment_1.enviroment.server.db.user,
             pass: enviroment_1.enviroment.server.db.password,
-            authdb: enviroment_1.enviroment.server.db.authDb
+            dbName: enviroment_1.enviroment.server.db.authDb,
+            useNewUrlParser: true
         });
     }
     initRoute(routers) {
