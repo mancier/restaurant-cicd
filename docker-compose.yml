@@ -4,13 +4,10 @@ services:
     image: node
     container_name: backend
     volumes:
-      - type: bind
-        source: ./
-        target: /home/node/app/
+      - ./:/home/node/app
     ports: 
       - "8080:8080"
-    entrypoint: 
-      ./home/node/app/node_modules/.bin/nodemon main.js
+    command: node
     environment: 
       - NODE_ENV=developement 
     depends_on: 
@@ -24,4 +21,4 @@ services:
     restart: always
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: root 
+      ME_CONFIG_MONGODB_ADMINPASSWORD: K1WaMs04sbnNV6sb1ZE7RPTlOm7V4kG 

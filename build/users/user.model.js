@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema({
         required: false,
         validate: {
             validator: validators_1.validateCPF,
+            //@ts-ignore
             message: "{PATH}: Invalid CPF ({VALUE})"
         }
     }
