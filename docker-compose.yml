@@ -4,10 +4,11 @@ services:
     image: node
     container_name: backend
     volumes:
-      - ./:/home/node/app
+      - type: bind,
+      - ./build:/home/node/app
     ports: 
       - "8080:8080"
-    command: node
+    command: node /home/node/app/index.js
     environment: 
       - NODE_ENV=developement 
     depends_on: 
