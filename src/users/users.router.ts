@@ -1,12 +1,12 @@
-import { Router } from "../common/router"
+import { ModelRouter } from "../common/model-router"
 import * as restify from "restify"
 import { User } from "./user.model"
 import { NotFoundError } from "restify-errors";
 
-class UserRouter extends Router {
+class UserRouter extends ModelRouter<User> {
 
     constructor(){
-        super()
+        super(User)
         this.on('beforeRender', document => {
             document.password = undefined
         })
@@ -17,11 +17,7 @@ class UserRouter extends Router {
         /**
          * Get => When u need to get some information of the database, is highly recommended to use GET.
          */
-        application.get("/users", (req, res, next) => {
-            User.find()
-            .then(this.render(res, next))
-            .catch(next)
-        })
+        application.get("/users", this.findAll)
 
         application.get('/users/:id', (req, res, next) => {
             User.findById(req.params.id).then(this.render(res, next))

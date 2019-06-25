@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const router_1 = require("../common/router");
+const model_router_1 = require("../common/model-router");
 const user_model_1 = require("./user.model");
 const restify_errors_1 = require("restify-errors");
-class UserRouter extends router_1.Router {
+class UserRouter extends model_router_1.ModelRouter {
     constructor() {
-        super();
+        super(user_model_1.User);
         this.on('beforeRender', document => {
             document.password = undefined;
         });
@@ -14,11 +14,7 @@ class UserRouter extends router_1.Router {
         /**
          * Get => When u need to get some information of the database, is highly recommended to use GET.
          */
-        application.get("/users", (req, res, next) => {
-            user_model_1.User.find()
-                .then(this.render(res, next))
-                .catch(next);
-        });
+        application.get("/users", this.findAll);
         application.get('/users/:id', (req, res, next) => {
             user_model_1.User.findById(req.params.id).then(this.render(res, next))
                 .catch(next);
