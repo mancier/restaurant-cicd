@@ -36,7 +36,8 @@ class UserRouter extends router_1.Router {
          */
         application.put("/users/:id", (req, res, next) => {
             const options = {
-                overwrtite: true
+                overwrtite: true,
+                runValidators: true
             };
             user_model_1.User.update({ "_id": req.params.id }, req.body, options).exec()
                 .then((result) => {
@@ -53,7 +54,11 @@ class UserRouter extends router_1.Router {
          * Path => Update only one thing
          */
         application.patch("/users/:id", (req, res, next) => {
-            user_model_1.User.findByIdAndUpdate(req.params.id, req.body, { new: true }).then(this.render(res, next))
+            const options = {
+                new: true,
+                runValidators: true
+            };
+            user_model_1.User.findByIdAndUpdate(req.params.id, req.body, options).then(this.render(res, next))
                 .catch(next);
         });
         application.del('/user/:id', (req, res, next) => {

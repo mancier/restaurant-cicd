@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 */
 const mongoose = require("mongoose");
 const validators_1 = require("../common/validators");
+const bcrypt = require("bcrypt");
+const enviroment_1 = require("../common/enviroment");
 //Schema create a Schema on database
 const userSchema = new mongoose.Schema({
     name: {
@@ -42,4 +44,32 @@ const userSchema = new mongoose.Schema({
 /*
 * Mode
 */
+const hashPassword = (object, next) => {
+    bcrypt.hash(object.password, enviroment_1.enviroment.server.security.saltRounds)
+        .then(hash => {
+        object.password = hash;
+        next();
+    })
+        .catch(next);
+};
+const saveMiddleware = function (next) {
+    const user = this;
+    if (!user.isModified('password')) {
+        next();
+    }
+    else {
+        hashPassword(user, next);
+    }
+};
+const updateMiddleware = function (next) {
+    if (!this.getUpdate().password) {
+        next();
+    }
+    else {
+        hashPassword(this.getUpdate(), next);
+    }
+};
+userSchema.pre('save', saveMiddleware);
+userSchema.pre('findOneAndUpdate', updateMiddleware);
+userSchema.pre('update', updateMiddleware);
 exports.User = mongoose.model("User", userSchema);

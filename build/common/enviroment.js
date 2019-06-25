@@ -9,6 +9,9 @@ exports.enviroment = {
             schema: process.env.DB_SCHEMA || "meat-api",
             password: process.env.DB_PASSWORD || "K1WaMs04sbnNV6sb1ZE7RPTlOm7V4kG",
             authDb: process.env.DB_AUTHENTICATION || 'admin',
+        },
+        security: {
+            saltRounds: process.env.SALT_ROUNDS || 10
         }
     }
 };
