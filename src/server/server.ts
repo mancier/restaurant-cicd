@@ -11,10 +11,11 @@ export class Server {
 
     initializeDb(){
         (<any>mongoose).Promise = global.Promise
-        return mongoose.connect(enviroment.server.db.url, {
+        const urlSchema = enviroment.server.db.url + enviroment.server.db.schema
+        console.log(`URL: ${urlSchema}`)
+        return mongoose.connect(urlSchema, {
             user: enviroment.server.db.user,
             pass: enviroment.server.db.password,
-            dbName: enviroment.server.db.authDb,
             useNewUrlParser: true 
         } )
     }

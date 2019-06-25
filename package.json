@@ -5,7 +5,7 @@
   "author": "Victor Augusto <victor.silva452@outlook.com>",
   "license": "MIT",
   "scripts": {
-    "compile": "tsc -p . -w",
+    "compile": "tsc -p .",
     "start": "nodemon ./build",
     "compile:run": "yarn compile; yarn start"
   },
