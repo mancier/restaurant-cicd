@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const model_router_1 = require("../common/model-router");
 const user_model_1 = require("./user.model");
-const restify_errors_1 = require("restify-errors");
 class UserRouter extends model_router_1.ModelRouter {
     constructor() {
         super(user_model_1.User);
@@ -15,63 +14,20 @@ class UserRouter extends model_router_1.ModelRouter {
          * Get => When u need to get some information of the database, is highly recommended to use GET.
          */
         application.get("/users", this.findAll);
-        application.get('/users/:id', (req, res, next) => {
-            user_model_1.User.findById(req.params.id).then(this.render(res, next))
-                .catch(next);
-        });
+        application.get('/users/:id', this.findById);
         /**
          * Post => Recemended to create something ou to insert some data in database
          */
-        application.post("/users", (req, res, next) => {
-            let userDocument = new user_model_1.User(req.body);
-            userDocument.save().then(this.render(res, next))
-                .catch(next);
-        });
+        application.post("/users", this.insert);
         /**
          * Put => Used when u wants to change everything in the document
          */
-        application.put("/users/:id", (req, res, next) => {
-            const options = {
-                overwrtite: true,
-                runValidators: true
-            };
-            user_model_1.User.update({ "_id": req.params.id }, req.body, options).exec()
-                .then((result) => {
-                if (result.n) {
-                    return user_model_1.User.findById(req.params.id);
-                }
-                else {
-                    throw new restify_errors_1.NotFoundError("Document not found");
-                }
-            }).then(this.render(res, next))
-                .catch(next);
-        });
+        application.put("/users/:id", this.update);
         /**
          * Path => Update only one thing
          */
-        application.patch("/users/:id", (req, res, next) => {
-            const options = {
-                new: true,
-                runValidators: true
-            };
-            user_model_1.User.findByIdAndUpdate(req.params.id, req.body, options).then(this.render(res, next))
-                .catch(next);
-        });
-        application.del('/user/:id', (req, res, next) => {
-            user_model_1.User.remove({ _id: req.params.id }).exec().then(cmdResult => {
-                if (cmdResult.result.n) {
-                    res.send(204);
-                }
-                else {
-                    throw new restify_errors_1.NotFoundError("Document not found");
-                }
-                return next();
-            })
-                .catch(next);
-            // User.findByIdAndRemove(req.params.id).then(response => {
-            //     response ? resp.send(204) : resp.send(404)
-            // })
-        });
+        application.patch("/users/:id", this.partialUpdate);
+        application.del('/user/:id', this.remove);
     } //End of applyRouter()
 }
 exports.userRouter = new UserRouter();
