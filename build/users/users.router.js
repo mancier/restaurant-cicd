@@ -18,16 +18,16 @@ class UserRouter extends model_router_1.ModelRouter {
         /**
          * Post => Recemended to create something ou to insert some data in database
          */
-        application.post("/users", this.insert);
+        application.post("/users", this.save);
         /**
          * Put => Used when u wants to change everything in the document
          */
-        application.put("/users/:id", this.update);
+        application.put("/users/:id", this.replace);
         /**
          * Path => Update only one thing
          */
-        application.patch("/users/:id", this.partialUpdate);
-        application.del('/user/:id', this.remove);
+        application.patch("/users/:id", this.update);
+        application.del('/user/:id', this.delete);
     } //End of applyRouter()
 }
 exports.userRouter = new UserRouter();

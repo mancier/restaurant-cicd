@@ -20,13 +20,13 @@ export abstract class ModelRouter<D extends mongoose.Document> extends Router {
 			.catch(next)
 	}
 
-	insert = (req, res, next) => {
-		let payload = new this.model(req.body)
-		payload.save().then(this.render(res, next))
+	save = (req, res, next) => {
+		let document = new this.model(req.body)
+		document.save().then(this.render(res, next))
 			.catch(next)
 	}
 
-	update = (req, res, next) => {
+	replace = (req, res, next) => {
 		const options = {
 			overwrtite: true,
 			runValidators: true
@@ -42,7 +42,7 @@ export abstract class ModelRouter<D extends mongoose.Document> extends Router {
 			.catch(next)
 	}
 
-	partialUpdate = (req, res, next) => {
+	update = (req, res, next) => {
 		const options = {
 			new: true,
 			runValidators: true
@@ -51,7 +51,7 @@ export abstract class ModelRouter<D extends mongoose.Document> extends Router {
 			.catch(next)
 	}
 
-	remove = (req, res, next) => {
+	delete = (req, res, next) => {
 		this.model.remove({ _id: req.params.id }).exec().then(cmdResult => {
 			if (cmdResult.result.n) {
 				res.send(204)
