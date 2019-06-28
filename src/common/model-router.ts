@@ -6,11 +6,19 @@ export abstract class ModelRouter<D extends mongoose.Document> extends Router {
 	constructor(protected model: mongoose.Model<D>) {
 		super()
 	}
+
+	validateId = (req, res, next) => {
+		if(mongoose.Types.ObjectId.isValid(req.body.id)){
+			next()
+		} else {
+			next(new NotFoundError("Document not Found"))
+		}
+	}
 	
 	//Catch all datas
 	findAll = (req, res, next) => {
 		this.model.find()
-			.then(this.render(res, next))
+			.then(this.renderAll(res, next))
 			.catch(next)
 	}
 

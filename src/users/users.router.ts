@@ -19,7 +19,7 @@ class UserRouter extends ModelRouter<User> {
          */
         application.get("/users", this.findAll)
 
-        application.get('/users/:id', this.findById)
+        application.get('/users/:id', [this.validateId, this.findById])
 
         /**
          * Post => Recemended to create something ou to insert some data in database
@@ -29,14 +29,14 @@ class UserRouter extends ModelRouter<User> {
         /**
          * Put => Used when u wants to change everything in the document
          */
-        application.put("/users/:id", this.replace)
+        application.put("/users/:id", [this.validateId, this.replace])
 
         /**
          * Path => Update only one thing
          */
-        application.patch("/users/:id", this.update)
+        application.patch("/users/:id", [this.validateId, this.update])
 
-        application.del('/user/:id', this.delete)
+        application.del('/user/:id', [this.validateId, this.delete])
 
     } //End of applyRouter()
 }
