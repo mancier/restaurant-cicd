@@ -27,7 +27,7 @@ class UserRouter extends model_router_1.ModelRouter {
          * Path => Update only one thing
          */
         application.patch("/users/:id", [this.validateId, this.update]);
-        application.del('/user/:id', [this.validateId, this.delete]);
+        application.del('/users/:id', [this.validateId, this.delete]);
     } //End of applyRouter()
 }
 exports.userRouter = new UserRouter();

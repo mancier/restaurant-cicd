@@ -36,7 +36,7 @@ class UserRouter extends ModelRouter<User> {
          */
         application.patch("/users/:id", [this.validateId, this.update])
 
-        application.del('/user/:id', [this.validateId, this.delete])
+        application.del('/users/:id', [this.validateId, this.delete])
 
     } //End of applyRouter()
 }
