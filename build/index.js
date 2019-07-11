@@ -4,7 +4,7 @@ const server_1 = require("./server/server");
 const users_router_1 = require("./users/users.router");
 console.log("On");
 const server = new server_1.Server();
-server.bootstrap([users_router_1.userRouter]).then(server => {
+server.bootstrap([users_router_1.userRouter, restaurantsRouter]).then(server => {
     console.log("Server Running on ", server.application.address());
 })
     .catch(error => {

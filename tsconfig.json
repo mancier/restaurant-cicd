@@ -2,10 +2,10 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
-        "lib": ["es2016", "dom"],
-        "outDir": "./build"
+        "lib": ["esnext", "dom"],
+        "outDir": "./build",
+        "alwaysStrict": true,
+        "watch": true
     },
-    "exclude": [
-        "node_modules"
-    ]
+    "exclude": ["node_modules"],
 }
