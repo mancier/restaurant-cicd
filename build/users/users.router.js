@@ -58,7 +58,7 @@ class UserRouter extends router_1.Router {
         });
         application.del('/user/:id', (req, res, next) => {
             user_model_1.User.remove({ _id: req.params.id }).exec().then(cmdResult => {
-                if (cmdResult.result.n) {
+                if (cmdResult.n) {
                     res.send(204);
                 }
                 else {

@@ -65,7 +65,7 @@ class UserRouter extends Router {
 
         application.del('/user/:id', (req, res, next) => {
             User.remove({_id: req.params.id}).exec().then(cmdResult =>  {
-                if(cmdResult.result.n){
+                if(cmdResult.n){
                     res.send(204)
                 } else {
                     throw new NotFoundError("Document not found")

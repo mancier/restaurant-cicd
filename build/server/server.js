@@ -9,9 +9,6 @@ class Server {
     initializeDb() {
         mongoose.Promise = global.Promise;
         return mongoose.connect(enviroment_1.enviroment.server.db.url, {
-            user: enviroment_1.enviroment.server.db.user,
-            pass: enviroment_1.enviroment.server.db.password,
-            dbName: enviroment_1.enviroment.server.db.authDb,
             useNewUrlParser: true
         });
     }

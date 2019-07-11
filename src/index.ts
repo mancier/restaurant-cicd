@@ -1,6 +1,5 @@
 import { Server } from "./server/server"
 import { userRouter } from "./users/users.router"
-import { debug } from "util";
 
 console.log("On");
 

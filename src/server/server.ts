@@ -12,9 +12,6 @@ export class Server {
     initializeDb(){
         (<any>mongoose).Promise = global.Promise
         return mongoose.connect(enviroment.server.db.url, {
-            user: enviroment.server.db.user,
-            pass: enviroment.server.db.password,
-            dbName: enviroment.server.db.authDb,
             useNewUrlParser: true 
         } )
     }
