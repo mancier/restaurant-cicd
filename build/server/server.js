@@ -8,8 +8,8 @@ const error_handle_1 = require("./error.handle");
 class Server {
     initializeDb() {
         mongoose.Promise = global.Promise;
-        return mongoose.connect(enviroment_1.enviroment.server.db.url, {
-            useNewUrlParser: true
+        return mongoose.connect(enviroment_1.enviroment.server.db.url + enviroment_1.enviroment.server.db.schema, {
+            useNewUrlParser: true,
         });
     }
     initRoute(routers) {

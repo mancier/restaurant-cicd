@@ -11,8 +11,8 @@ export class Server {
 
     initializeDb(){
         (<any>mongoose).Promise = global.Promise
-        return mongoose.connect(enviroment.server.db.url, {
-            useNewUrlParser: true 
+        return mongoose.connect(enviroment.server.db.url+enviroment.server.db.schema, {
+            useNewUrlParser: true,
         } )
     }
 
