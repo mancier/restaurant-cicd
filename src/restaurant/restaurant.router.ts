@@ -9,7 +9,7 @@ class RestaurantsRouter extends ModelRouter<Restaurant>{
 	}
 
 	findMenu = (req, res, next) => {
-		Restaurant.findById(req.param.id, "+menu")
+		Restaurant.findById(req.params.id, "+menu")
 		.then(rest => {
 			if(!rest){
 				throw new NotFoundError("Restaurant Not Found")
@@ -21,15 +21,18 @@ class RestaurantsRouter extends ModelRouter<Restaurant>{
 	}
 
 	replaceMenu = (req, res, next) => {
-		Restaurant.findById(req.param.id)
+		Restaurant.findById(req.params.id)
 		.then(rest => {
 			if(!rest){
 				throw new NotFoundError("Restaurant Not Foud")
 			} else {
-				res.menu = req.body
+				console.log("Menu: " + req.menu)
+				req.menu = req.body
+				console.log("Restaurant found: " + req.menu)
 				return rest.save()
 			}
 		}).then(rest => {
+			console.log("Response: "+JSON.stringify(rest))
 			res.json(rest.menu)
 			return next()
 		}).catch(next)

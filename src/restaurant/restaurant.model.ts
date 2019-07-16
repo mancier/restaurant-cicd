@@ -1,5 +1,4 @@
 import * as mongoose from "mongoose"
-import { MongoClient, Mongos } from "mongodb";
 
 export interface MenuItem extends mongoose.Document{
 	name: string,
@@ -23,15 +22,20 @@ const menuScheme = new mongoose.Schema({
 })
 
 const restaurantSchema = new mongoose.Schema({
-	neme: {
+	name: {
 		type: String,
-		menu:{
-			type: [menuScheme],
-			required: false,
-			select: false, //Não irá trazer o menu quando selecionado o restaurant
-			default: [] //Valor default no mongoose
-		}
+		required: true
+	},
+	menu: {
+		type: [menuScheme],
+		required: false,
+		select: true, //Não irá trazer o menu quando selecionado o restaurant
 	}
+})
+
+restaurantSchema.pre("save", function (next){
+	console.log(this)	
+	next()
 })
 
 //export const Menu = mongoose.model<MenuItem>("Menu", menuScheme)
