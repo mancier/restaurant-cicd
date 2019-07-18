@@ -19,7 +19,7 @@ const menuScheme = new mongoose.Schema({
 		type: Number,
 		required: true
 	}
-})
+});
 
 const restaurantSchema = new mongoose.Schema({
 	name: {
@@ -31,12 +31,11 @@ const restaurantSchema = new mongoose.Schema({
 		required: false,
 		select: true, //Não irá trazer o menu quando selecionado o restaurant
 	}
-})
+});
 
 restaurantSchema.pre("save", function (next){
-	console.log(this)	
+    console.log(this);
 	next()
-})
-
+});
 //export const Menu = mongoose.model<MenuItem>("Menu", menuScheme)
-export const Restaurant = mongoose.model<Restaurant>("Restaurant", restaurantSchema)
+export const Restaurant = mongoose.model<Restaurant>("Restaurant", restaurantSchema);
