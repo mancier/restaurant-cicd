@@ -1,0 +1,29 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+GET http://localhost:3000/reviews
+Accept: application/json
+
+###
+
+GET http://localhost:3000/reviews/5d2fe7e578382f542606c518
+Accept: application/json
+
+###
+
+POST http://localhost:3000/reviews
+Content-Type: application/json
+
+{
+  "date": "2019-07-18T02:20:10.000Z",
+  "rating": 5,
+  "comments": "Perfeito",
+  "user": "5d26978a8d00b161d5c2159c",
+  "restaurant": "5d2d31737700e737581d3eeb"
+}
+
+###
