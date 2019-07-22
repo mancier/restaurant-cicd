@@ -33,9 +33,5 @@ const restaurantSchema = new mongoose.Schema({
 	}
 });
 
-restaurantSchema.pre("save", function (next){
-    console.log(this);
-	next()
-});
 //export const Menu = mongoose.model<MenuItem>("Menu", menuScheme)
 export const Restaurant = mongoose.model<Restaurant>("Restaurant", restaurantSchema);

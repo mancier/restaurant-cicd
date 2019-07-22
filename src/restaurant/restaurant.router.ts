@@ -26,13 +26,10 @@ class RestaurantsRouter extends ModelRouter<Restaurant>{
 			if(!rest){
 				throw new NotFoundError("Restaurant Not Found")
 			} else {
-				console.log("Menu: " + req.menu);
-				req.menu = req.body;
-				console.log("Restaurant found: " + JSON.stringify(req.menu));
-				return rest.save()
+				rest.menu = req.body;
+				return rest.save(req.menu)
 			}
 		}).then(rest => {
-			console.info("Response: " + JSON.stringify(rest));
 			res.json(rest.menu);
 			return next()
 		}).catch(next())
