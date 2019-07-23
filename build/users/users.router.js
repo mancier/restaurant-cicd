@@ -5,6 +5,17 @@ const user_model_1 = require("./user.model");
 class UserRouter extends model_router_1.ModelRouter {
     constructor() {
         super(user_model_1.User);
+        this.findByEmail = (req, res, next) => {
+            if (req.query.email) {
+                user_model_1.User.findByEmail(req.query.email)
+                    .then(user => user ? [user] : [])
+                    .then(this.renderAll(res, next))
+                    .catch(next);
+            }
+            else {
+                next();
+            }
+        };
         this.on('beforeRender', document => {
             document.password = undefined;
         });
@@ -13,7 +24,8 @@ class UserRouter extends model_router_1.ModelRouter {
         /**
          * Get => When u need to get some information of the database, is highly recommended to use GET.
          */
-        application.get("/users", this.findAll);
+        application.get({ path: "/users", version: "2.0.0" }, [this.findByEmail, this.findAll]);
+        //application.get({path: "/users", version: "1.0.0"}, [this.findAll])
         application.get('/users/:id', [this.validateId, this.findById]);
         /**
          * Post => Recemended to create something ou to insert some data in database

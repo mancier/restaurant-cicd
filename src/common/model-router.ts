@@ -7,6 +7,11 @@ export abstract class ModelRouter<D extends mongoose.Document> extends Router {
 		super()
 	}
 
+	//Metodo mais generico para querys e tratamentos
+	protected prepareOne(query: mongoose.DocumentQuery<D, D>): mongoose.DocumentQuery<D, D> {
+		return query
+	}
+
 	validateId = (req, res, next) => {
 		if(mongoose.Types.ObjectId.isValid(req.params.id)){
 			next()

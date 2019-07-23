@@ -2,16 +2,25 @@ import {ModelRouter} from "../common/model-router";
 import * as restify from "restify"
 import {NotFoundError} from "restify-errors";
 import {Reviews} from "./reviews.model";
+import * as mongoose from "mongoose";
 
 class ReviewsRouter extends ModelRouter<Reviews> {
     constructor() {
         super(Reviews)
     }
 
+    /*
+    >> Outro meio de se fazer o findById usando um template
+    protected prepareOne(query: mongoose.DocumentQuery<Reviews,Reviews>): mongoose.DocumentQuery<Reviews,Reviews> {
+        return query.populate("user", "name")
+                    .populate("restaurant", "name")
+    }
+     */
+
     findById = (req, res, next) => {
         this.model.findById(req.params.id)
             .populate("user", "name")
-            .populate("restaurant")
+            .populate("restaurant", "name")
             .then(this.render(res, next))
             .catch(next)
     }

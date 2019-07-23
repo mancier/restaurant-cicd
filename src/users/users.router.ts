@@ -12,12 +12,25 @@ class UserRouter extends ModelRouter<User> {
         })
     }
 
+    findByEmail = (req, res, next) => {
+        if (req.query.email) {
+            User.findByEmail(req.query.email)
+                .then(user => user ? [user] : [])
+                .then(this.renderAll(res, next))
+                .catch(next)
+        } else {
+            next()
+        }
+    }
+
     applyRouter(application: restify.Server){
 
         /**
          * Get => When u need to get some information of the database, is highly recommended to use GET.
          */
-        application.get("/users", this.findAll)
+        application.get({path: "/users", version: "2.0.0"}, [this.findByEmail, this.findAll])
+
+        //application.get({path: "/users", version: "1.0.0"}, [this.findAll])
 
         application.get('/users/:id', [this.validateId, this.findById])
 

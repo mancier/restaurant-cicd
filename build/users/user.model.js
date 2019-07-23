@@ -44,6 +44,9 @@ const userSchema = new mongoose.Schema({
 /*
 * Mode
 */
+userSchema.statics.findByEmail = function (email) {
+    return this.findOne({email: email}); // EcmaScript15 = {email} == {email: email}
+};
 const hashPassword = (object, next) => {
     bcrypt.hash(object.password, enviroment_1.enviroment.server.security.saltRounds)
         .then(hash => {
