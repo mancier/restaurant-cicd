@@ -1,7 +1,7 @@
 image: node:13-alpine
 
 before_script:
-  - yarn install
+  - yarn
 
 cache:
   paths:
@@ -10,7 +10,6 @@ cache:
 build:
   stage: deploy
   script:
-    - yarn install --prod
     - node dist/main/index.js
   artifacts:
     paths:
