@@ -2,7 +2,6 @@ image: node:13-alpine
 
 before_script:
   - apk add yarn --no-cache
-  - yarn install --prod
 
 cache:
   paths:
@@ -11,9 +10,9 @@ cache:
 build:
   stage: deploy
   script:
-    - node dist/main/index.js
+    - yarn install --prod
   artifacts:
     paths:
-    - dist
+    - build
   only:
   - master
