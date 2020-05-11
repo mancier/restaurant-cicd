@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "compile": "tsc -p .",
-    "start": "nodemon ./build",
+    "start": "nodemon ./dist",
     "compile:run": "yarn compile & yarn start"
   },
   "dependencies": {
