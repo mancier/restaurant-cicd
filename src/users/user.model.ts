@@ -10,10 +10,11 @@ export interface User extends mongoose.Document {
     name: string,
     email: string,
     password: string,
+    matches(password: string): boolean
 }
 
 export interface UserModel extends mongoose.Model<User> {
-    findByEmail(email: string): Promise<User>
+    findByEmail(email: string, projection?:string): Promise<User>
 }
 
 //Schema create a Schema on database
@@ -59,8 +60,12 @@ const userSchema = new mongoose.Schema({
 * Mode
 */
 
-userSchema.statics.findByEmail = function (email: string) {
-    return this.findOne({email: email}) // EcmaScript15 = {email} == {email: email}
+userSchema.statics.findByEmail = function (email: string, projection: string) {
+    return this.findOne({email: email}, projection) // EcmaScript15 = {email} == {email: email}
+}
+
+userSchema.methods.matches = function (password:string): boolean {
+    return bcrypt.compareSync(password, this.password)
 }
 
 const hashPassword = (object, next) =>{
