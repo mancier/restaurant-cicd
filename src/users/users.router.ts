@@ -2,6 +2,7 @@ import { ModelRouter } from "../common/model-router"
 import * as restify from "restify"
 import { User } from "./user.model"
 import { NotFoundError } from "restify-errors";
+import { authenticate } from "../security/oauth";
 
 class UserRouter extends ModelRouter<User> {
 
@@ -49,7 +50,15 @@ class UserRouter extends ModelRouter<User> {
          */
         application.patch("/users/:id", [this.validateId, this.update])
 
+        /**
+         * Del => Delete a register
+         */
         application.del('/users/:id', [this.validateId, this.delete])
+
+        /**
+         * Auth => User auth 
+         */
+        application.post('/oauth', [ authenticate ])
 
     } //End of applyRouter()
 }
