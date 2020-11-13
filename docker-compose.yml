@@ -1,23 +1,22 @@
 version: "3.7"
 services: 
   back:
-    image: node:13-alpine
+    image: node:lts-alpine
     container_name: backend
     working_dir: /home/app
-    
     volumes:
       - .:/home/app
     ports: 
-      - "3000:3000"
-    entrypoint: 'npm run start'
+      - 9300:3000
+    entrypoint: 'node dist/index.js'
     env_file: 
       - .env 
     depends_on: 
-      - db
+      - database
     links: 
-      - db
+      - database
 
-  db:
+  database:
     image: mongo
     container_name: restifycourse_db
     ports: 
@@ -28,5 +27,9 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: admin
       ME_CONFIG_MONGODB_ADMINPASSWORD: K1WaMs04sbnNV6sb1ZE7RPTlOm7V4kG
+
 volumes:
   mongodb:
+
+networks:
+  restify:

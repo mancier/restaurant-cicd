@@ -1,7 +1,6 @@
 import { ModelRouter } from "../common/model-router"
 import * as restify from "restify"
 import { User } from "./user.model"
-import { NotFoundError } from "restify-errors";
 import { authenticate } from "../security/oauth";
 
 class UserRouter extends ModelRouter<User> {
