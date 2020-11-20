@@ -1,18 +1,36 @@
 image: node:13-alpine
-
-before_script:
-  - apk add yarn --no-cache
+stages:
+  - build
+  - release # Versionamento
+  - deploy
 
 cache:
-  paths:
-    - node_modules/
+  untracked: false
+  policy: pull-push
 
-build:
-  stage: deploy
+project-build:
+  stage: build
   script:
-    - yarn install --prod
+    - cp .env.example .env
+    - yarn install --freeze-lockfile --prefer-offline --cache-folder .yarn-cache/
+    - yarn compile
   artifacts:
     paths:
-    - build
+      - dist/
+      - package.json
+      - yarn.lock
+      - .env
   only:
   - master
+
+release-project:
+  stage: release
+  script:
+    # Versione o projeto
+    # Build do docker 
+    # Tagear a imagem
+    # docker push repo
+    - 
+
+deploy:
+  stage: deploy
