@@ -7,7 +7,8 @@
   "scripts": {
     "compile": "tsc -p .",
     "start": "nodemon ./dist",
-    "compile:run": "yarn compile & yarn start"
+    "compile:run": "yarn compile & yarn start",
+    "build": "tsc"
   },
   "dependencies": {
     "axios": "^0.18.0",
